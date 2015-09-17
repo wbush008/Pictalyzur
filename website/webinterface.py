@@ -9,23 +9,25 @@ def dict_to_html(d):
 
 # home page
 @app.route('/')
-def more():
-    return '''
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>ttci</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Taking text to class...ification.</h2>
-      <br>
-      <p>Click <a href="/submit_page">submission</a> to go add some text.</p>
-    </div>
-  </body>
-</html>
-'''
+def index():
+
+    return render_template('index.html')
+#     return '''
+# <!DOCTYPE html>
+# <html>
+#   <head>
+#     <title>ttci</title>
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#   </head>
+#   <body>
+#     <div class="container">
+#       <h1>Taking text to class...ification.</h2>
+#       <br>
+#       <p>Click <a href="/submit_page">submission</a> to go add some text.</p>
+#     </div>
+#   </body>
+# </html>
+# '''
 
 
 # Form page to submit text

@@ -38,7 +38,7 @@ X_red = X_svd.fit_transform(X)
 
 # Train logistic regression
 mod_logit = LogisticRegression()
-mod_logit.fit(X_red, y)
+mod_logit.fit(X, y)
 
 # Pickle the model
 with  open("mod_logit.pkl", 'w') as f:
