@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
   with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     future_to_item = dict( (executor.submit(download, item, 
-                            '../bin/jpgs/users/' + args.username), item) for item in crawl(args.username) )
+                            '/home/will/code/Instagramalyze/bin/jpgs/users/' + args.username), item) for item in crawl(args.username) )
   
     for future in concurrent.futures.as_completed(future_to_item):
       item = future_to_item[future]

@@ -1,6 +1,14 @@
 from collections import Counter
 import cPickle as pickle
+import os
+import pandas as pd
+import json
+import matplotlib.pyplot as plt
+import csv
+import numpy as np
 from flask import Flask, request, render_template
+
+plt.style.use('ggplot')
 app = Flask(__name__)
 
 
@@ -46,18 +54,59 @@ def submit_page():
 def word_class():
     text = str(request.form['user_input'])
 
+    if os.path.exists('static/images/cat_counts.png'):
+        os.remove('static/images/cat_counts.png')
+    image_path = '/home/will/code/Instagramalyze/bin/jpgs/users/'
+
+    os.system(' '.join(['python /home/will/code/Instagramalyze/process_user/PredictUser.py', text]))
+
+    with open('../bin/stats/user_stats.json') as data_file: 
+        user_data = json.load(data_file)
+    
+    bar_v = []
+    bar_k = []
+    for k, v in user_data[text]['category_counts'].iteritems():
+        bar_v.append(v)
+        bar_k.append(k)
+        
+    y_size = .8
+
+    fig, ax = plt.subplots()
+    # rects1 = ax.barh(x, user_data['senabrew']['category_counts'].values(), height=y_size, color='b')
+    rects1 = ax.barh(range(12), bar_v, height=y_size, color='b')
+    ax.set_yticks(np.array(range(12))+(y_size/2))
+    # ax.set_yticklabels(user_data['senabrew']['category_counts'].keys())
+    ax.set_yticklabels(bar_k)
+    ax.set_title('Photos in each category')
+
+    plt.savefig('static/images/cat_counts.png')
+
+    adverts = '../static/images/'+user_data[text]['top_count']+'.jpg'
+
+    confidence = np.array(user_data[text]['confidence'])
+    msk = confidence.argsort()[-4:][::-1]
+    top_conf = confidence[msk]
+    top_preds = np.array(user_data[text]['predictions'])[msk]
+    top_images = np.array(user_data[text]['image_lst'])[msk]
+    top_images = [''.join(['/static/user_images/', text, '/', link.split('/')[-1]]) for link in top_images]
+    captions = [''.join([pred, ': ', str(top_conf[i])]) for i, pred in enumerate(top_preds)]
 
 
-    with open('data/vectorizer.pkl') as f:
-        vectorizer = pickle.load(f)
-    with open('data/model.pkl') as f:
-        model = pickle.load(f)
+    return render_template('display.html', 
+                            ad=adverts, 
+                            image_set=top_images, 
+                            caption_set=captions)
 
-    x = vectorizer.transform([text])
-
-    page = 'Predictions: {0}'
-    return page.format(model.predict(x)[0])
-
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+
