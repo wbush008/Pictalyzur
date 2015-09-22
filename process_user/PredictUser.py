@@ -10,11 +10,11 @@ import cPickle as pickle
 
 
 def keywithmaxval(d):
-     """ a) create a list of the dict's keys and values; 
+    """ a) create a list of the dict's keys and values; 
          b) return the key with the max value"""  
-     v=list(d.values())
-     k=list(d.keys())
-     return k[v.index(max(v))]
+    v = list(d.values())
+    k = list(d.keys())
+    return k[v.index(max(v))]
 
 
 def add_user(username):
@@ -37,11 +37,11 @@ def add_user(username):
 
 
 	if username+'.npy' not in user_npys:
-		os.system(' '.join(['python ', 
-				    caffe_classify_path, 
-				    '--gpu', 
-                    image_path+username, 
-                    npy_path+username]))
+		os.system(' '.join(['python ',
+				  caffe_classify_path,
+				  '--gpu',
+                  image_path+username,
+                  npy_path+username]))
 
 
 def predict_user(username):
@@ -57,40 +57,49 @@ def predict_user(username):
 
 
 	if username not in all_users:
-		with open(classifier_path+'mod_logit.pkl') as m_un:
-		    mod_logit = pickle.load(m_un)
+		X = np.load(npy_path+username+'.npy')
+		X_s = mod_svd.transform(X)	
 
-		with open(classifier_path+'labels_logit.csv', 'r') as myfile:
-		    csv_reader = csv.reader(myfile)
-		    categories = list(csv_reader)[0]
-
-		predictions = mod_logit.predict(np.load(npy_path+username+'.npy'))
-		
-		confidence = mod_logit.predict_proba(np.load(npy_path+username+'.npy')).max(axis=1)
-
-		preds_c = [categories[int(pred)] for pred in predictions]
-		category_counts = dict([(cat, preds_c.count(cat)) for cat in categories]) 
-		
-		image_lst = sorted([im_f for im_f in glob.glob(''.join([image_path, 
-																username,'/*.jpg']))])
-		
-		top_count = keywithmaxval(category_counts)
-
+		stream = os.popen('ls '+image_path+category+'/')
+		label_folders = stream.read().split()
 
 		user_dict = {}
 		user_stats = {}
-		
-		user_stats['predictions'] = preds_c
-		user_stats['confidence'] = confidence.tolist()
-		user_stats['category_counts'] = category_counts
+		image_lst = sorted([im_f for im_f in glob.glob(''.join([image_path, 
+																username,'/*.jpg']))])
+
 		user_stats['image_lst'] = image_lst
-		user_stats['top_count'] = top_count
+
+		for label in label_folders:
+			with open(classifier_path+label+'_svd.pkl') as m_un:
+			    mod_svd = pickle.load(m_un)
+
+			with open(classifier_path+label+'_logit.pkl') as m_un:
+				mod_logit = pickle.load(m_un)
+
+			with open(classifier_path+label+'_labels.csv', 'r') as myfile:
+			    csv_reader = csv.reader(myfile)
+			    categories = list(csv_reader)[0]
+
+			predictions = mod_logit.predict(X_s)
+			confidence = mod_logit.predict_proba(X_s).max(axis=1)
+
+			preds_c = [categories[int(pred)] for pred in predictions]
+			category_counts = dict([(cat, preds_c.count(cat)) for cat in categories]) 
+
+			top_count = keywithmaxval(category_counts)
+			
+			user_stats[label+'_predictions'] = preds_c
+			user_stats[label+'_confidence'] = confidence.tolist()
+			user_stats[label+'_category_counts'] = category_counts
+
+			user_stats[label+'_top_count'] = top_count
+		
+
 		user_dict[username] = user_stats
 
-
-
 		if username not in all_users:
-			if os.path.exists('/home/will/code/Instagramalyze/bin/stats/user_stats.json'):	
+			if os.path.exists('/home/will/code/Instagramalyze/bin/stats/user_stats.json'):
 				with open('/home/will/code/Instagramalyze/bin/stats/user_stats.json', 'r') as myfile:
 				    old_user_dict = json.load(myfile)
 

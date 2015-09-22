@@ -4,6 +4,7 @@ import cPickle as pickle
 import pandas as pd
 from sklearn.decomposition import TruncatedSVD
 from sklearn.cross_validation import train_test_split
+from sklearn.utils import shuffle
 import csv
 import os
 
@@ -18,9 +19,9 @@ stream = os.popen('ls '+np_path)
 cat_folders = stream.read().split()
 
 for category in cat_folders:
-
 	stream = os.popen('ls '+np_path+category+'/')
 	label_folders = stream.read().split()
+
 
 	# load the .npy files from the list.
 	feat_array = []
@@ -42,15 +43,14 @@ for category in cat_folders:
 
 	y = np.hstack(label_lst)
 
-	X_t, y_t, X_rem, y_rem = train_test_split(X, y, train_size=.99)
-
 	# Feature reduction
 	X_svd = TruncatedSVD(n_components=n_features)
-	X_red = X_svd.fit_transform(X_t)
+	X_red = X_svd.fit_transform(X)
+
 
 	# Train logistic regression
 	mod_logit = LogisticRegression()
-	mod_logit.fit(X_t, y_t)
+	mod_logit.fit(X_red, y)
 
 	# Pickle the model
 	with  open(category+'_logit.pkl', 'w') as f:
