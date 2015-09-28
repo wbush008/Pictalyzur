@@ -1,0 +1,13 @@
+biking.npy
+cooking.npy
+fashion.npy
+fitness.npy
+gardening.npy
+hiking.npy
+hunting_fishing.npy
+kids.npy
+other.npy
+pets.npy
+social_out.npy
+summer_fun.npy
+winter_sports.npy

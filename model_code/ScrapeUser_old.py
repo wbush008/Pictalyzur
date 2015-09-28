@@ -65,20 +65,20 @@ if __name__ == '__main__':
     """
     parser = argparse.ArgumentParser(add_help=True)
     parser.add_argument('username')
-    parser.add_argument('--prefix-created-time',
-                        nargs='?',
-                        const='%Y%m%dT%H%M%S_',
-                        dest='prefix_created_time_format',
-                        help='Prefix the media filename with the specified datetime format')
+    # parser.add_argument('--prefix-created-time',
+    #                     nargs='?',
+    #                     const='%Y%m%dT%H%M%S_',
+    #                     dest='prefix_created_time_format',
+    #                     help='Prefix the media filename with the specified datetime format')
 
-    parser.add_argument('args', nargs=argparse.REMAINDER)
+    # parser.add_argument('args', nargs=argparse.REMAINDER)
 
     global args
     args = parser.parse_args()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         future_to_item = dict((executor.submit(download, item,
-                                               '/home/will/code/Instagramalyze/bin/jpgs/users/' + args.username), 
+                                               '../bin/jpgs/users/' + args.username), 
                                                item) for item in crawl(args.username))
 
         for future in concurrent.futures.as_completed(future_to_item):
