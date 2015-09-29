@@ -29,7 +29,7 @@ def set_example_photos(username, user_data, label_dict):
                        user['image_lst']]).T
 
     df.columns = ['activity_confidence', 'activity_predictions', 'image_lst']
-    df_top = df[df['activity_predictions'] != 'other'].sort('activity_confidence', ascending=False).head(4)
+    df_top = df[df['activity_predictions'] != 'other'].sort('activity_confidence', ascending=False).head(12)
     top_conf = df_top.activity_confidence.values
     top_preds = df_top.activity_predictions.values
     top_images = df_top.image_lst.values
