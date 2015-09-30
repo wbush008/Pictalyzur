@@ -68,7 +68,7 @@ The application takes an Instagram user name, collects all of the photos in that
 
 ![plot+ad](https://github.com/wbush008/Pictalyzur/blob/master/imgs/jt_ad.png)
 
-The topic with the largest percentage of photos in the feed is selected as the category of interest for that user.  Using this, I can choose a product ad for that users.  For instance if most of the users photos are of goig out to bars and concerts, they will be served an ad for a smart watch in a night lifescene, where the user will likely to want to engage with the product.  
+The topic with the largest percentage of photos in the feed is selected as the category of interest for that user.  Using this, I can choose a product ad for that users.  For instance if most of the users photos are of hunting and fishing, they will be served an ad for a smart watch an outdoor sports scene, where the user will likely to want to engage with the product.  
 
 The code for labeling user photos is [here][4] in the model_code folder.
 
