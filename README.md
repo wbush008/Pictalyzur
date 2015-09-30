@@ -62,15 +62,15 @@ The code for fitting and saving the model is [here][3] in the model_code folder.
 
 The trained model is then used to label photos from Instagram.  Instagram is an appealing case study for image classification as photos are the primary, and nearly the only, source of information about its users.
 
+![images](https://github.com/wbush008/Pictalyzur/blob/master/imgs/imcats.png)
+
 The application takes an Instagram user name, collects all of the photos in that users feed, and returns a label for each image along with a confidence rating for that label.  This bag of labeled photos can then be used to extract descriptive statistics about the user.  I recorded counts of photos in each category, and importantly the category with the most photos represented in the users feed.  
 
-![images](https://github.com/wbush008/Pictalyzur/blob/master/imgs/imcats.png)
+![plot+ad](https://github.com/wbush008/Pictalyzur/blob/master/imgs/jt_ad.png)
 
 The topic with the largest percentage of photos in the feed is selected as the category of interest for that user.  Using this, I can choose a product ad for that users.  For instance if most of the users photos are of goig out to bars and concerts, they will be served an ad for a smart watch in a night lifescene, where the user will likely to want to engage with the product.  
 
 The code for labeling user photos is [here][4] in the model_code folder.
-
-![plot+ad](https://github.com/wbush008/Pictalyzur/blob/master/imgs/jt_ad.png)
 
 <a name="webapp"/>
 ##Web App
