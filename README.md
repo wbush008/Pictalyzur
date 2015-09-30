@@ -53,7 +53,7 @@ For each image, I extracted 4096 feature values at the first hidden layer of the
 
 The final classification step was performed using a multinomial logistic regression using a one-vs-rest scheme.  The performance of the model was tested using cross-validation, and the final model achieved 80.8% accuracy.  
 
-The logistic regression was compared with other classifiers, including SVMs, random forest, and gradient boosting.  All of the classifiers showed similar performance, within 3% accuracy, but none outperformed the logistic regression.  It is likely that with an extensive hyper-parameter search these models could surpass the regression, however more efficient improvement could probably be made by creating more extensive training image sets.  
+The logistic regression was compared with other classifiers, including SVMs, random forest, and gradient boosting.  All of the classifiers showed similar performance, within 3% accuracy, but none outperformed the logistic regression.  It is likely that with an extensive hyper-parameter search these models could surpass the logistic regression, however more efficient improvement could probably be made by adding images to the training set.  
 
 The code for fitting and saving the model is [here][3] in the model_code folder.
 
