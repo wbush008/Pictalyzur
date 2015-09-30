@@ -14,16 +14,16 @@ You can try the web app out for yourself at [http://www.pictalyzur.com/][1].
 * [Installation](#installation)
 
 <a name="motivation"/>
-##Motivation:
+##Motivation
 
 Cognitive psychologists have demonstrated that your memory for an image increases the longer you look at it.  In the world of advertising this means that you want people to view your ads for as long as possible.  One way to achieve this is to to show your product in a domain that is of interest to the consumer.  
 
 Using convolution neural networks, SVD, and logistic regression, I designed a model to categorize social media photos and determine the advertisement that is most likely to engage a specific user.
 
 <a name="gld"/>
-##Gathering labeled data:
+##Gathering labeled data
 
-I collected labeled data for thirteen image categories:
+I collected labeled data for thirteen image categories.
 
 ###Categories
 * Hiking
@@ -43,7 +43,7 @@ I collected labeled data for thirteen image categories:
 A large number of images (36,472) were used to improve the generalizability of the model.  The images were collected from the Google Image API and ImageNet.  The images were scaled to dimensions of 256X256 during the download processes for compatibility with the convolution neural network, and irrelevant images were removed prior to training
 
 <a name="model"/>
-##Model:
+##Model
 
 ![pipeline](https://github.com/wbush008/Pictalyzur/blob/master/imgs/pipeline.png)
 
