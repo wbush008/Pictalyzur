@@ -60,9 +60,9 @@ The code for fitting and saving the model is [here][3] in the model_code folder.
 <a name="rwd"/>
 ##Real world data
 
-The trained model is used to label photos from Instagram.  Instagram is an appealing case study for image classification as photos are the primary, and nearly the only, source of information about its users.
-
 ![images](https://github.com/wbush008/Pictalyzur/blob/master/imgs/imcats.png)
+
+The trained model is used to label photos from Instagram.  Instagram is an appealing case study for image classification as photos are the primary, and nearly the only, source of information about its users.
 
 The application takes an Instagram user name, collects all of the photos in that users feed, and returns a label for each image along with a confidence rating for that label.  This bag of labeled photos can then be used to extract descriptive statistics about the user.  I recorded counts of photos in each category, and importantly the category with the most photos represented in the users feed.  
 
