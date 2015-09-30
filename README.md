@@ -45,6 +45,8 @@ A large number of images (36,472) were used to improve the generalizability of t
 <a name="model"/>
 ##Model:
 
+![pipeline](https://github.com/wbush008/Pictalyzur/blob/master/imgs/pipeline.png)
+
 One of the major challenges with image data is creating meaningful features from the raw pixels.  For feature construction, I used a convolution neural network that had been pre-trained on image data for an object recognition task.  The network is available through the open source [Caffe][2] toolkit.  
 
 For each image, I extracted 4096 feature values at the first hidden layer of the network.  These 4096 features were then reduced down to 200 using singular value decomposition (SVD).  This reduction made fitting the linear classifier more tractable.
@@ -62,7 +64,11 @@ The trained model is then used to label photos from Instagram.  Instagram is an 
 
 The application takes an Instagram user name, collects all of the photos in that users feed, and returns a label for each image along with a confidence rating for that label.  This bag of labeled photos can then be used to extract descriptive statistics about the user.  I recorded counts of photos in each category, and importantly the category with the most photos represented in the users feed.  
 
-The topic with the largest percentage of photos in the feed is selected as the category of interest for that user.  Using this, I can choose a product ad for that users.  For instance if most of the users photos are of hiking, they will be served an ad for a smart watch in a hiking scene, where the user will likely to want to engage with the product.  
+![images](https://github.com/wbush008/Pictalyzur/blob/master/imgs/imcats.png)
+
+The topic with the largest percentage of photos in the feed is selected as the category of interest for that user.  Using this, I can choose a product ad for that users.  For instance if most of the users photos are of goig out to bars and concerts, they will be served an ad for a smart watch in a night lifescene, where the user will likely to want to engage with the product.  
+
+![plot+ad](https://github.com/wbush008/Pictalyzur/blob/master/imgs/jt_ad.png)
 
 The code for labeling user photos is [here][4] in the model_code folder.
 
