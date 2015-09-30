@@ -2,7 +2,7 @@
 
 The goal of this project is to use image classification to determine what activities a user is interested in, and target advertising accordingly.  
 
-A wearable device is used as an example product.  Twelve image categories were choosen for both their relevance to wearables (e.g. biking, exercise, hiking), and their popularity on Instagram (e.g. pets, food, fashion). 
+A wearable device is used as an example product.  Thirteen image categories were choosen for both their relevance to wearables (e.g. biking, exercise, hiking), and their popularity on Instagram (e.g. pets, food, fashion). 
 
 You can try the web app out for yourself at [http://www.pictalyzur.com/][1].
 
